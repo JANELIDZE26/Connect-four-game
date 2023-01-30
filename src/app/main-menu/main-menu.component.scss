@@ -1,0 +1,57 @@
+@import "../../shared/styles/colors";
+
+.background {
+  background: $darkPurple;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .mainMenu {
+    background: $purple;
+    width: 48.5rem;
+    height: 48.5rem;
+    border-radius: 40px;
+    border: 3px solid #000000;
+    box-shadow: 0px 10px 0px #000000;
+
+    .logo {
+      padding: 7rem;
+      text-align: center;
+    }
+
+    .play {
+      background: $yellow;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .gameRules {
+      background: $white;
+      display: flex;
+      align-items: center;
+    }
+
+    .button {
+      width: 80%;
+      margin: 3rem auto;
+      font-size: 2.4rem;
+      text-transform: uppercase;
+      cursor: pointer;
+      border: 3px solid #000000;
+      box-shadow: 0px 10px 0px #000000;
+      border-radius: 2rem;
+      padding: 0 2rem;
+      font-weight: bold;
+      height: 7.2rem;
+      transition: all 0.3s;
+
+      &:active {
+        transform: translateY(10px);
+        box-shadow: 0px 0px 0px #5c2dd5;
+      }
+    }
+  }
+}
