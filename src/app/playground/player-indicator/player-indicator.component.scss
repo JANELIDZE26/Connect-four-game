@@ -1,0 +1,36 @@
+@import '../../../shared/styles/colors';
+
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid #000000;
+  box-shadow: 0px 1rem 0px #000000;
+  border-radius: 2rem;
+  background: $white;
+  width: 16rem;
+  padding: 4.6rem 3rem 1.7rem 3rem;
+
+  .player-indicator-icon {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .text {
+    font-family: 'Space Grotesk', serif;
+    font-style: normal;
+    font-weight: 700;
+  }
+
+  .player-indicator-text {
+    font-size: 2rem;
+  }
+
+  .player-score {
+    font-size: 5.6rem;
+  }
+}
