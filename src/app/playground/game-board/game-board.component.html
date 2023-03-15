@@ -1,1 +1,10 @@
-<p>game-board works!</p>
+<div class="layer">
+  <div *ngFor="let column of board['columns']">
+    <div *ngFor="let row of board['rows']">
+      <app-selectable
+        [coordinates]="{row, column}"
+        (play$)="onPlay($event)"
+      ></app-selectable>
+    </div>
+  </div>
+</div>

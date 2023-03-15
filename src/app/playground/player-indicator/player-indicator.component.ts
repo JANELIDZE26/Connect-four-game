@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Player } from '@models/models';
 
 @Component({
   selector: 'app-player-indicator',
@@ -7,7 +8,8 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PlayerIndicatorComponent {
-  @Input() playerIndicatorText: 'Player 1' | 'Player 2' | undefined;
-  @Input() playerIndicatorIconName: 'player-one' | 'player-two' | undefined;
+  public readonly _PLAYER = Player;
+  @Input() playerIndicatorText: Player | undefined;
+  @Input() playerIndicatorIconName: Player | undefined;
   @Input() playerScore: number = 0;
 }

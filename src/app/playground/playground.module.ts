@@ -7,6 +7,8 @@ import { ControlPanelComponent } from './control-panel/control-panel.component';
 import { ConnectCircleComponent } from './connect-circle/connect-circle.component';
 import { RouterModule } from '@angular/router';
 import { PlaygroundComponent } from './playground.component';
+import { PointerComponent } from './game-board/pointer/pointer.component';
+import { SelectableComponent } from './selectable/selectable.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +18,8 @@ import { PlaygroundComponent } from './playground.component';
     ControlPanelComponent,
     ConnectCircleComponent,
     PlaygroundComponent,
+    PointerComponent,
+    SelectableComponent,
   ],
   imports: [
     CommonModule,

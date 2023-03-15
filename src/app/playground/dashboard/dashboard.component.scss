@@ -1,0 +1,32 @@
+@import "../../../shared/styles/colors";
+
+.dashboard {
+  width: 20rem;
+  height: 17rem;
+  position: absolute;
+  left: 50%;
+  bottom: -13rem;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: url("../../../assets/images/turn-background-red.svg") no-repeat;
+  color: $white;
+
+  &.playerTwo {
+    background: url("../../../assets/images/turn-background-yellow.svg")
+      no-repeat;
+
+    .text {
+      color: $black;
+    }
+  }
+
+  .text {
+    font-family: "Space Grotesk", serif;
+    font-weight: 700;
+    font-size: 1.6rem;
+    text-transform: uppercase;
+  }
+}

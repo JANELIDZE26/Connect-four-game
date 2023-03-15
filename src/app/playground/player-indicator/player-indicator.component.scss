@@ -1,4 +1,4 @@
-@import '../../../shared/styles/colors';
+@import "../../../shared/styles/colors";
 
 .container {
   position: relative;
@@ -21,9 +21,9 @@
   }
 
   .text {
-    font-family: 'Space Grotesk', serif;
-    font-style: normal;
+    font-family: "Space Grotesk", serif;
     font-weight: 700;
+    text-transform: uppercase;
   }
 
   .player-indicator-text {

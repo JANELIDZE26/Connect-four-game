@@ -1,8 +1,8 @@
 <div class="background">
   <div class="container">
     <app-player-indicator
-      playerIndicatorText="Player 1"
-      playerIndicatorIconName="player-one"
+      [playerIndicatorText]="PLAYER.playerOne"
+      [playerIndicatorIconName]="PLAYER.playerOne"
     ></app-player-indicator>
     <div class="mid-part">
       <app-control-panel></app-control-panel>
@@ -10,8 +10,8 @@
       <app-dashboard></app-dashboard>
     </div>
     <app-player-indicator
-      playerIndicatorText="Player 2"
-      playerIndicatorIconName="player-two"
+      [playerIndicatorText]="PLAYER.playerTwo"
+      [playerIndicatorIconName]="PLAYER.playerTwo"
     ></app-player-indicator>
   </div>
 </div>
