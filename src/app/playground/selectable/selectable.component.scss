@@ -1,0 +1,14 @@
+@import '../../../shared/styles/colors';
+
+:host {
+  background: black;
+  width: 6.4rem;
+  height: 6.4rem;
+  border-radius: 50%;
+  display: block;
+  background: $purple;
+  border: 3px solid $black;
+  box-shadow: inset 0 8px $black;
+  margin-bottom: 2.5rem;
+  cursor: pointer;
+}
