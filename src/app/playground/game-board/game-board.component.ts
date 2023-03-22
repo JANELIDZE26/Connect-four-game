@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Dimensions, SelectableInfo } from '@models/models';
+import {Dimensions, Player, SelectableInfo} from '@models/models';
 import { ControllerService } from '../../services/controller/controller.service';
 
 @Component({
@@ -13,6 +13,7 @@ export class GameBoardComponent implements OnInit {
     columns: new Array(Dimensions.columns).fill(0).map((x, i) => i + 1),
     rows: new Array(Dimensions.rows).fill(0).map((x, i) => i + 1),
   };
+  public player!: Player;
 
   constructor(private controllerService: ControllerService) {}
 

@@ -21,6 +21,6 @@ export class ControllerService {
   }
 
   play(selectableInfo: SelectableInfo): void {
-    this.gameBoardService;
+    this.gameBoardService.updateGameBoardUI(selectableInfo);
   }
 }

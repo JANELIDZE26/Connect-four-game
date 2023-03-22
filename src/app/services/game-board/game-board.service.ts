@@ -14,7 +14,7 @@ export class GameBoardService {
   constructor() {}
 
   public updateGameBoardUI(selectableInfo: SelectableInfo): void {
-
+    console.log(selectableInfo);
   }
 
   public initGameBoard(): void {
