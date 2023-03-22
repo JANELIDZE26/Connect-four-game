@@ -1,4 +1,5 @@
-@import '../../../shared/styles/colors';
+@import "../../../shared/styles/colors";
+@import "../../../shared/styles/mixins/vertical-responsiveness";
 
 :host {
   background: black;
@@ -11,4 +12,9 @@
   box-shadow: inset 0 8px $black;
   margin-bottom: 2.5rem;
   cursor: pointer;
+
+  @include breakpoint(md, max-height) {
+    width: 5.4rem;
+    height: 5.4rem;
+  }
 }

@@ -1,0 +1,21 @@
+@import "../maps/horizontal-breakpoints";
+
+@mixin breakpoint($breakpoint, $direction: min-width) {
+
+  @if (map-has-key($breakpoints, $breakpoint)) {
+    $breakpoint-values: map-get($breakpoints, $breakpoint);
+    $breakpoint-value: map-get($breakpoint-values, max-width);
+
+    @if ($direction == min-width) {
+      $breakpoint-value: map-get($breakpoint-values, min-width);
+    }
+
+    @media ($direction: $breakpoint-value) {
+      @content;
+    }
+  } @else {
+    @media($direction: $breakpoint) {
+      @content;
+    }
+  }
+}

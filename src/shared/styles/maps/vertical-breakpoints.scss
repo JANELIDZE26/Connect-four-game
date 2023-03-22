@@ -1,0 +1,22 @@
+$breakpoints: (
+  sm: (
+    min-height: 576px,
+    max-height: 575.98px,
+  ),
+  md: (
+    min-height: 768px,
+    max-height: 767.98px
+  ),
+  lg: (
+    min-height: 992px,
+    max-height: 991.98px
+  ),
+  xl: (
+    min-height: 1200px,
+    max-height: 1199.98px
+  ),
+  xxl: (
+    min-height: 1400px,
+    max-height: 1399.98px,
+  )
+);

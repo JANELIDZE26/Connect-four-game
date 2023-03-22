@@ -1,0 +1,21 @@
+@import "../maps/vertical-breakpoints";
+
+@mixin breakpoint($breakpoint, $direction: min-height) {
+
+  @if (map-has-key($breakpoints, $breakpoint)) {
+    $breakpoint-values: map-get($breakpoints, $breakpoint);
+    $breakpoint-value: map-get($breakpoint-values, max-height);
+
+    @if ($direction == min-height) {
+      $breakpoint-value: map-get($breakpoint-values, min-height);
+    }
+
+    @media ($direction: $breakpoint-value) {
+      @content;
+    }
+  } @else {
+    @media($direction: $breakpoint) {
+      @content;
+    }
+  }
+}
