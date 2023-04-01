@@ -7,6 +7,7 @@ import {
   Output,
 } from '@angular/core';
 import { Coordinates, Player, SelectableInfo } from '@models/models';
+import { PlayerService } from '../../services/player/player.service';
 
 @Component({
   selector: 'app-selectable',
@@ -15,15 +16,19 @@ import { Coordinates, Player, SelectableInfo } from '@models/models';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectableComponent {
-  @Input() player!: Player | null;
+  public player!: Player | null;
+  PLAYER_TYPE = Player;
   @Input() coordinates!: Coordinates;
   @Output() play$ = new EventEmitter<SelectableInfo>();
 
+  constructor(private playerService: PlayerService) {}
   @HostListener('click')
   onClick() {
+    if(this.player) return;
+    this.player = this.playerService.player;
     this.play$.emit({
-      player: this.player!,
-      coordinates: this.coordinates,
+      player: this.player,
+      coordinates: { ...this.coordinates },
     });
   }
 }

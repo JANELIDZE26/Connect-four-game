@@ -1,7 +1,7 @@
 @import "../../../shared/styles/colors";
 @import "../../../shared/styles/mixins/vertical-responsiveness";
 
-:host {
+.selectable {
   background: black;
   width: 6.4rem;
   height: 6.4rem;
@@ -12,9 +12,18 @@
   box-shadow: inset 0 8px $black;
   margin-bottom: 2.5rem;
   cursor: pointer;
+  transition: all .3s;
 
   @include breakpoint(md, max-height) {
     width: 5.4rem;
     height: 5.4rem;
+  }
+
+  &.playerOne {
+    background: $red;
+  }
+
+  &.playerTwo {
+    background: $yellow;
   }
 }

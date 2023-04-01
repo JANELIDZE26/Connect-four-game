@@ -13,9 +13,7 @@ export class GameBoardService {
   gameBoard!: SelectableInfo[][];
   constructor() {}
 
-  public updateGameBoardUI(selectableInfo: SelectableInfo): void {
-    console.log(selectableInfo);
-  }
+  public updateGameBoardUI(selectableInfo: SelectableInfo): void {}
 
   public initGameBoard(): void {
     this.gameBoard = Array.from({ length: Dimensions.rows }, (_, I: number) =>

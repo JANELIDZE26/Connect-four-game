@@ -3,7 +3,6 @@
     <div *ngFor="let row of board['rows']">
       <app-selectable
         [coordinates]="{row, column}"
-        [player]="player$ | async"
         (play$)="onPlay($event)"
       ></app-selectable>
     </div>

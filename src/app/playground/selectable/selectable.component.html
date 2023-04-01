@@ -1,1 +1,7 @@
-
+<div
+  class="selectable"
+  [ngClass]="{
+    playerOne: player === PLAYER_TYPE.playerOne,
+    playerTwo: player === PLAYER_TYPE.playerTwo
+  }"
+></div>
