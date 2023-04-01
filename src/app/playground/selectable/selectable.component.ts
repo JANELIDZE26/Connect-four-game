@@ -15,7 +15,7 @@ import { Coordinates, Player, SelectableInfo } from '@models/models';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectableComponent {
-  @Input() player!: Player;
+  @Input() player!: Player | null;
   @Input() coordinates!: Coordinates;
   @Output() play$ = new EventEmitter<SelectableInfo>();
 

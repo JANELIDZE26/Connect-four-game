@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Dimensions, Player, SelectableInfo } from '@models/models';
-import { Subject } from 'rxjs';
+import { Player, SelectableInfo } from '@models/models';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { GameBoardService } from '../game-board/game-board.service';
 
 @Injectable({
@@ -11,16 +11,29 @@ export class ControllerService {
   // Control Player Turn.
   // Countdown.
   // control score for each player.
-  player: Player = Player.playerOne;
+  private _player$ = new BehaviorSubject<Player>(Player.playerOne);
   play$ = new Subject<SelectableInfo>();
+
+  get player$(): Observable<Player> {
+    return this._player$.asObservable();
+  }
 
   constructor(private gameBoardService: GameBoardService) {}
 
-  initGameBoard(): void {
+  public initGameBoard(): void {
     this.gameBoardService.initGameBoard();
   }
 
-  play(selectableInfo: SelectableInfo): void {
+  public play(selectableInfo: SelectableInfo): void {
     this.gameBoardService.updateGameBoardUI(selectableInfo);
+    this.switchPlayer();
+  }
+
+  private switchPlayer(): void {
+    if (this._player$.getValue() === Player.playerOne) {
+      this._player$.next(Player.playerTwo);
+    } else {
+      this._player$.next(Player.playerOne);
+    }
   }
 }
