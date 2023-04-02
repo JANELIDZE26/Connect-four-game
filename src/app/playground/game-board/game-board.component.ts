@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Dimensions, SelectableInfo } from '@models/models';
 import { ControllerService } from '../../services/controller/controller.service';
-
+import { GameBoardService } from '../../services/game-board/game-board.service';
 
 @Component({
   selector: 'app-game-board',
@@ -10,20 +10,16 @@ import { ControllerService } from '../../services/controller/controller.service'
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GameBoardComponent implements OnInit {
-  public board: { [index: string]: number[] } = {
-    columns: new Array(Dimensions.columns).fill(0).map((x, i) => i + 1),
-    rows: new Array(Dimensions.rows).fill(0).map((x, i) => i + 1),
-  };
+  public gameBoard$ = this.gameBoardService.gameBoard$;
 
   constructor(
     private controllerService: ControllerService,
+    private gameBoardService: GameBoardService
   ) {}
 
   onPlay(selectableInfo: SelectableInfo): void {
     this.controllerService.play(selectableInfo);
   }
 
-  ngOnInit(): void {
-    this.controllerService.initGameBoard();
-  }
+  ngOnInit(): void {}
 }

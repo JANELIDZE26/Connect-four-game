@@ -1,10 +1,12 @@
 <div class="layer">
-  <div *ngFor="let column of board['columns']">
-    <div *ngFor="let row of board['rows']">
-      <app-selectable
-        [coordinates]="{row, column}"
-        (play$)="onPlay($event)"
-      ></app-selectable>
+  <ng-container *ngIf="gameBoard$ | async as gameBoard">
+    <div *ngFor="let column of gameBoard; let i = index">
+      <ng-container *ngFor="let row of gameBoard[i]; let j = index">
+        <app-selectable
+          [coordinates]="{ row: j + 1, column: i + 1 }"
+          (play$)="onPlay($event)"
+        ></app-selectable>
+      </ng-container>
     </div>
-  </div>
+  </ng-container>
 </div>

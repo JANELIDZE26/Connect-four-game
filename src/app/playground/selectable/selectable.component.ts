@@ -17,18 +17,23 @@ import { PlayerService } from '../../services/player/player.service';
 })
 export class SelectableComponent {
   public player!: Player | null;
-  PLAYER_TYPE = Player;
+  public readonly PLAYER_TYPE = Player;
   @Input() coordinates!: Coordinates;
   @Output() play$ = new EventEmitter<SelectableInfo>();
 
   constructor(private playerService: PlayerService) {}
-  @HostListener('click')
+
   onClick() {
-    if(this.player) return;
+    if (this.player) return;
     this.player = this.playerService.player;
     this.play$.emit({
       player: this.player,
       coordinates: { ...this.coordinates },
+      isHovered: false,
     });
+  }
+
+  onHover() {
+    console.log(this.coordinates);
   }
 }

@@ -19,9 +19,7 @@ export class ControllerService {
     private playerService: PlayerService
   ) {}
 
-  public initGameBoard(): void {
-    this.gameBoardService.initGameBoard();
-  }
+
 
   public play(selectableInfo: SelectableInfo): void {
     this.gameBoardService.updateGameBoardUI(selectableInfo);
