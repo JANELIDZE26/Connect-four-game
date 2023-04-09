@@ -1,7 +1,8 @@
-﻿import { Coordinates, Player } from '@models/models';
+﻿import {Coordinates, Player} from '@models/models';
 
 export interface SelectableInfo {
   player: Player | null;
   coordinates: Coordinates;
-  isHovered: boolean
+  isHovered: boolean,
+  isSelected: boolean,
 }

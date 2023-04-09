@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { Player, SelectableInfo } from '@models/models';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { GameBoardService } from '../game-board/game-board.service';
-import { PlayerService } from '../player/player.service';
+import {Injectable} from '@angular/core';
+import {Player, SelectableInfo} from '@models/models';
+import {Observable, Subject} from 'rxjs';
+import {GameBoardService} from '../game-board/game-board.service';
+import {PlayerService} from '../player/player.service';
 
 @Injectable({
   providedIn: 'root',
@@ -17,12 +17,27 @@ export class ControllerService {
   constructor(
     private gameBoardService: GameBoardService,
     private playerService: PlayerService
-  ) {}
+  ) {
+  }
 
+  public get currentPlayer(): Player {
+    return this.playerService.player;
+  }
 
+  public getGameBoard$(): Observable<SelectableInfo[][]> {
+    return this.gameBoardService.gameBoard$;
+  }
 
-  public play(selectableInfo: SelectableInfo): void {
-    this.gameBoardService.updateGameBoardUI(selectableInfo);
+  public play(): void {
+    this.gameBoardService.updateGameBoardUI();
     this.playerService.switchPlayer();
+  }
+
+  public hoverOnColumn(column: number): void {
+    this.gameBoardService.activateHoverState(column);
+  }
+
+  public leaveHover(): void {
+    this.gameBoardService.deactivateHoverState();
   }
 }

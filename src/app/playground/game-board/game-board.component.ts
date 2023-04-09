@@ -1,7 +1,5 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Dimensions, SelectableInfo } from '@models/models';
-import { ControllerService } from '../../services/controller/controller.service';
-import { GameBoardService } from '../../services/game-board/game-board.service';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {ControllerService} from '../../services/controller/controller.service';
 
 @Component({
   selector: 'app-game-board',
@@ -9,17 +7,21 @@ import { GameBoardService } from '../../services/game-board/game-board.service';
   styleUrls: ['./game-board.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class GameBoardComponent implements OnInit {
-  public gameBoard$ = this.gameBoardService.gameBoard$;
+export class GameBoardComponent {
+  public gameBoard$ = this.controllerService.getGameBoard$();
 
-  constructor(
-    private controllerService: ControllerService,
-    private gameBoardService: GameBoardService
-  ) {}
-
-  onPlay(selectableInfo: SelectableInfo): void {
-    this.controllerService.play(selectableInfo);
+  constructor(private controllerService: ControllerService) {
   }
 
-  ngOnInit(): void {}
+  public onMouseenter(column: number): void {
+    this.controllerService.hoverOnColumn(column);
+  }
+
+  public onMouseLeave(): void {
+    this.controllerService.leaveHover();
+  }
+
+  public onClickColumn(): void {
+    this.controllerService.play();
+  }
 }

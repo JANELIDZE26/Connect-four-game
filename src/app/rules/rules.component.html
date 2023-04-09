@@ -11,14 +11,14 @@
     <div class="how-to-play">
       <div class="subtitle">how to play</div>
       <div class="text">
-        <div class="rule" *ngFor="let rule of rules; let i = index">
+        <div *ngFor="let rule of rules; let i = index" class="rule">
           <span class="number">{{ i + 1 }}</span>
           {{ rule }}
         </div>
       </div>
     </div>
     <div class="confirm" routerLink="/main-menu">
-      <img src="assets/images/icon-check.svg" alt="check icon" />
+      <img alt="check icon" src="assets/images/icon-check.svg"/>
     </div>
   </div>
 </div>

@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ConnectCircleComponent } from './connect-circle.component';
+import {ConnectCircleComponent} from './connect-circle.component';
 
 describe('ConnectCircleComponent', () => {
   let component: ConnectCircleComponent;
@@ -8,9 +8,9 @@ describe('ConnectCircleComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ConnectCircleComponent ]
+      declarations: [ConnectCircleComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(ConnectCircleComponent);
     component = fixture.componentInstance;

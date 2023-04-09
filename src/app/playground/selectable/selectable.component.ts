@@ -1,13 +1,5 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  HostListener,
-  Input,
-  Output,
-} from '@angular/core';
-import { Coordinates, Player, SelectableInfo } from '@models/models';
-import { PlayerService } from '../../services/player/player.service';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Coordinates, Player } from '@models/models';
 
 @Component({
   selector: 'app-selectable',
@@ -16,24 +8,9 @@ import { PlayerService } from '../../services/player/player.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SelectableComponent {
-  public player!: Player | null;
   public readonly PLAYER_TYPE = Player;
+  @Input() player!: Player | null;
   @Input() coordinates!: Coordinates;
-  @Output() play$ = new EventEmitter<SelectableInfo>();
-
-  constructor(private playerService: PlayerService) {}
-
-  onClick() {
-    if (this.player) return;
-    this.player = this.playerService.player;
-    this.play$.emit({
-      player: this.player,
-      coordinates: { ...this.coordinates },
-      isHovered: false,
-    });
-  }
-
-  onHover() {
-    console.log(this.coordinates);
-  }
+  @Input() isHovered = false;
+  @Input() isSelected = false;
 }

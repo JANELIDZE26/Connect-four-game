@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { PlayerIndicatorComponent } from './player-indicator.component';
+import {PlayerIndicatorComponent} from './player-indicator.component';
 
 describe('PlayerIndicatorComponent', () => {
   let component: PlayerIndicatorComponent;
@@ -8,9 +8,9 @@ describe('PlayerIndicatorComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ PlayerIndicatorComponent ]
+      declarations: [PlayerIndicatorComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(PlayerIndicatorComponent);
     component = fixture.componentInstance;

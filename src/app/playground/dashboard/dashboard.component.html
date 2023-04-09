@@ -1,6 +1,6 @@
-<div class="dashboard" [ngClass]="{ playerTwo: player === PLAYER.playerTwo }">
+<div [ngClass]="{ playerTwo: player === PLAYER.playerTwo }" class="dashboard">
   <span class="text"
-    >Player {{ player === PLAYER.playerOne ? "1" : "2" }}'s turn</span
+  >Player {{ player === PLAYER.playerOne ? "1" : "2" }}'s turn</span
   >
   <span class="countDown"></span>
 </div>

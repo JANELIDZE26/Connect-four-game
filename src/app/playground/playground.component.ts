@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Player, SelectableInfo, Scoreboard } from '@models/models';
-import { ControllerService } from '../services/controller/controller.service';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {Player, Scoreboard} from '@models/models';
+import {ControllerService} from '../services/controller/controller.service';
 
 @Component({
   selector: 'app-playground',
@@ -10,9 +10,10 @@ import { ControllerService } from '../services/controller/controller.service';
 })
 export class PlaygroundComponent implements OnInit {
   public readonly PLAYER = Player;
-  public readonly SCOREBOARD: Scoreboard = { playerOne: 0, playerTwo: 0 };
+  public readonly SCOREBOARD: Scoreboard = {playerOne: 0, playerTwo: 0};
 
-  constructor(private controllerService: ControllerService) {}
+  constructor(private controllerService: ControllerService) {
+  }
 
   ngOnInit(): void {
     // this.controllerService.playerClicked$.subscribe(

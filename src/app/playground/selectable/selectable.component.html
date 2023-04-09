@@ -1,9 +1,9 @@
 <div
-  class="selectable"
-  (mouseenter)="onHover()"
-  (click)="onClick()"
   [ngClass]="{
+    selected: isSelected,
+    hovered: isHovered,
     playerOne: player === PLAYER_TYPE.playerOne,
     playerTwo: player === PLAYER_TYPE.playerTwo
   }"
+  class="selectable"
 ></div>

@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { Player } from '@models/models';
+import {Injectable} from '@angular/core';
+import {Player} from '@models/models';
 
 @Injectable({
   providedIn: 'root',
@@ -14,8 +14,6 @@ export class PlayerService {
   set player(newPlayer: Player) {
     this._player = newPlayer;
   }
-
-  constructor() {}
 
   public switchPlayer(): void {
     if (this.player === Player.playerOne) {

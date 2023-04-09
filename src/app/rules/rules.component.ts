@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
 
 
 @Component({
@@ -7,7 +7,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrls: ['./rules.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class RulesComponent   {
+export class RulesComponent {
 
   public readonly rules = [
     'Red goes first in the first game.',

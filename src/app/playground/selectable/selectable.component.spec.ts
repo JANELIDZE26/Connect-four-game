@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { SelectableComponent } from './selectable.component';
+import {SelectableComponent} from './selectable.component';
 
 describe('SelectableComponent', () => {
   let component: SelectableComponent;
@@ -8,9 +8,9 @@ describe('SelectableComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SelectableComponent ]
+      declarations: [SelectableComponent]
     })
-    .compileComponents();
+      .compileComponents();
 
     fixture = TestBed.createComponent(SelectableComponent);
     component = fixture.componentInstance;

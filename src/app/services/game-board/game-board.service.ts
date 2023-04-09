@@ -1,75 +1,75 @@
-import { Injectable } from '@angular/core';
-import {
-  Coordinates,
-  Dimensions,
-  Player,
-  SelectableInfo,
-} from '@models/models';
-import { BehaviorSubject, Observable } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {Dimensions, SelectableInfo,} from '@models/models';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {PlayerService} from "../player/player.service";
 
 @Injectable({
   providedIn: 'root',
 })
 export class GameBoardService {
-  private gameBoard!: SelectableInfo[][];
-  private _gameBoard$ = this.initGameBoard();
+  private hoveredSelectable: SelectableInfo | undefined;
+
+  private _gameBoard$: BehaviorSubject<SelectableInfo[][]> =
+    this.initGameBoard();
 
   get gameBoard$(): Observable<SelectableInfo[][]> {
     return this._gameBoard$.asObservable();
   }
 
-  public updateGameBoardUI(selectableInfo: SelectableInfo): void {
-    console.log(selectableInfo);
+  constructor(private playerService: PlayerService) {
+  }
+
+  public updateGameBoardUI(): void {
+    this.hoveredSelectable!.isSelected = true;
+    // this.hoveredSelectable!.player = selectableInfo.player;
+  }
+
+  public activateHoverState(column: number): void {
+    this.hoveredSelectable = this.getFirstAvailableSelectable(column);
+    if (!this.hoveredSelectable) return;
+    this.hoveredSelectable.isHovered = true;
+    this.hoveredSelectable.player = this.playerService.player;
+  }
+
+  public deactivateHoverState(): void {
+    this.hoveredSelectable!.isHovered = false;
   }
 
   private initGameBoard(): BehaviorSubject<SelectableInfo[][]> {
-    const gameBoard = Array.from({ length: Dimensions.columns }, (_, i: number) =>
-      Array.from({ length: Dimensions.rows }, (_, j: number) => ({
-        player: null,
-        coordinates: { row: j + 1, column: i + 1 },
-        isHovered: false,
-      }))
+    const gameBoard = Array.from(
+      {length: Dimensions.columns},
+      (_, i: number) =>
+        Array.from({length: Dimensions.rows}, (_, j: number) => ({
+          player: null,
+          coordinates: {row: j, column: i},
+          isHovered: false,
+          isSelected: false,
+        }))
     );
-    console.log(gameBoard);
     return new BehaviorSubject<SelectableInfo[][]>(gameBoard);
   }
 
-  public activateHoverState(coordinates: SelectableInfo['coordinates']) {
-    const hoverActivatedSelectable = this.getFirstAvailableSelectable(
-      coordinates.row,
-      coordinates.column
-    );
-    this.updateGameBoard(hoverActivatedSelectable);
-  }
-
-  private getFirstAvailableSelectable(
-    row: number,
-    column: number
-  ): SelectableInfo {
-    let tempSelectable: SelectableInfo | undefined = undefined;
-    for (let i = row + 1; i < this.gameBoard.length; i++) {
-      const selectable = this.gameBoard[i][column];
-      if (!selectable.player) {
-        tempSelectable = selectable;
-      } else if (tempSelectable) {
-        return tempSelectable;
-      } else {
-        // If first next element in column is already selected return selected element
-        return this.gameBoard[row][column];
+  private getFirstAvailableSelectable(column: number): SelectableInfo {
+    const gameBoard = this._gameBoard$.getValue();
+    const selectedColumn = gameBoard[column];
+    let row = 0;
+    for (let i = 1; i < selectedColumn.length; i++) {
+      if (selectedColumn[i].isSelected) {
+        return gameBoard[column][row];
       }
+      row = i;
     }
-    return tempSelectable!;
+    return gameBoard[column][row];
   }
 
-  private updateGameBoard(selectable: SelectableInfo): void {
-    const updatedGameBoard = {
-      ...this.gameBoard,
-    };
+  private updateHoverState(selectable: SelectableInfo): void {
+    const gameBoard = this._gameBoard$.getValue();
+    const updatedGameBoard = [...gameBoard];
 
-    updatedGameBoard[selectable.coordinates.row][
-      selectable.coordinates.column
-    ] = { ...selectable };
+    updatedGameBoard[selectable.coordinates.column][
+      selectable.coordinates.row
+      ] = {...selectable, isHovered: true};
 
-    this.gameBoard = updatedGameBoard;
+    this._gameBoard$.next(updatedGameBoard);
   }
 }
