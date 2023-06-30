@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
-import {Dimensions, SelectableInfo,} from '@models/models';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {PlayerService} from "../player/player.service";
+import { Injectable } from '@angular/core';
+import { Dimensions, SelectableInfo } from '@models/models';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { PlayerService } from '../player/player.service';
 
 @Injectable({
   providedIn: 'root',
@@ -16,12 +16,10 @@ export class GameBoardService {
     return this._gameBoard$.asObservable();
   }
 
-  constructor(private playerService: PlayerService) {
-  }
+  constructor(private playerService: PlayerService) {}
 
   public updateGameBoardUI(): void {
     this.hoveredSelectable!.isSelected = true;
-    // this.hoveredSelectable!.player = selectableInfo.player;
   }
 
   public activateHoverState(column: number): void {
@@ -37,11 +35,11 @@ export class GameBoardService {
 
   private initGameBoard(): BehaviorSubject<SelectableInfo[][]> {
     const gameBoard = Array.from(
-      {length: Dimensions.columns},
+      { length: Dimensions.columns },
       (_, i: number) =>
-        Array.from({length: Dimensions.rows}, (_, j: number) => ({
+        Array.from({ length: Dimensions.rows }, (_, j: number) => ({
           player: null,
-          coordinates: {row: j, column: i},
+          coordinates: { row: j, column: i },
           isHovered: false,
           isSelected: false,
         }))
@@ -68,7 +66,7 @@ export class GameBoardService {
 
     updatedGameBoard[selectable.coordinates.column][
       selectable.coordinates.row
-      ] = {...selectable, isHovered: true};
+    ] = { ...selectable, isHovered: true };
 
     this._gameBoard$.next(updatedGameBoard);
   }

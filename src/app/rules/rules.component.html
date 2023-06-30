@@ -1,24 +1,22 @@
-<div class="background">
-  <div class="rules">
-    <div class="header">Rules</div>
-    <div class="objective">
-      <div class="subtitle">objective</div>
-      <div class="text">
-        Be the first player to connect 4 of the same colored discs in a row
-        (either vertically, horizontally, or diagonally).
+<div class="rules">
+  <div class="header">Rules</div>
+  <div class="objective">
+    <div class="subtitle">objective</div>
+    <div class="text">
+      Be the first player to connect 4 of the same colored discs in a row
+      (either vertically, horizontally, or diagonally).
+    </div>
+  </div>
+  <div class="how-to-play">
+    <div class="subtitle">how to play</div>
+    <div class="text">
+      <div *ngFor="let rule of rules; let i = index" class="rule">
+        <span class="number">{{ i + 1 }}</span>
+        {{ rule }}
       </div>
     </div>
-    <div class="how-to-play">
-      <div class="subtitle">how to play</div>
-      <div class="text">
-        <div *ngFor="let rule of rules; let i = index" class="rule">
-          <span class="number">{{ i + 1 }}</span>
-          {{ rule }}
-        </div>
-      </div>
-    </div>
-    <div class="confirm" routerLink="/main-menu">
-      <img alt="check icon" src="assets/images/icon-check.svg"/>
-    </div>
+  </div>
+  <div class="confirm" routerLink="/main-menu">
+    <img alt="check icon" src="assets/images/icon-check.svg" />
   </div>
 </div>

@@ -1,5 +1,5 @@
-import {ChangeDetectionStrategy, Component, Input} from '@angular/core';
-import {Player} from '@models/models';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Player } from '@models/models';
 
 @Component({
   selector: 'app-dashboard',
