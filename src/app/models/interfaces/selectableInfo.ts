@@ -2,7 +2,7 @@
 
 export interface SelectableInfo {
   player: Player | null;
-  coordinates: Coordinates;
+  readonly coordinates: Coordinates;
   isHovered: boolean,
   isSelected: boolean,
 }

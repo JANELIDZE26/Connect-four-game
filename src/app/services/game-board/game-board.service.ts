@@ -8,29 +8,44 @@ import { PlayerService } from '../player/player.service';
 })
 export class GameBoardService {
   private hoveredSelectable: SelectableInfo | undefined;
+  private _currentColumn: number | undefined;
 
   private _gameBoard$: BehaviorSubject<SelectableInfo[][]> =
     this.initGameBoard();
+
+  get currentColumn(): number | undefined {
+    return this._currentColumn;
+  }
+
+  set currentColumn(column: number | undefined) {
+    this._currentColumn = column;
+  }
 
   get gameBoard$(): Observable<SelectableInfo[][]> {
     return this._gameBoard$.asObservable();
   }
 
-  constructor(private playerService: PlayerService) {}
-
-  public updateGameBoardUI(): void {
-    this.hoveredSelectable!.isSelected = true;
+  get isSelected(): boolean {
+    return this.hoveredSelectable!.isSelected;
   }
 
-  public activateHoverState(column: number): void {
-    this.hoveredSelectable = this.getFirstAvailableSelectable(column);
-    if (!this.hoveredSelectable) return;
+  constructor(private playerService: PlayerService) {}
+
+  public onPlay(): void {
+    this.hoveredSelectable!.isSelected = true;
+    this.activateHoverState();
+  }
+
+  public activateHoverState(): void {
+    this.hoveredSelectable = this.getFirstAvailableSelectable();
+    if (this.isSelected) return;
     this.hoveredSelectable.isHovered = true;
     this.hoveredSelectable.player = this.playerService.player;
   }
 
   public deactivateHoverState(): void {
     this.hoveredSelectable!.isHovered = false;
+    this.currentColumn = undefined;
   }
 
   private initGameBoard(): BehaviorSubject<SelectableInfo[][]> {
@@ -47,27 +62,16 @@ export class GameBoardService {
     return new BehaviorSubject<SelectableInfo[][]>(gameBoard);
   }
 
-  private getFirstAvailableSelectable(column: number): SelectableInfo {
+  private getFirstAvailableSelectable(): SelectableInfo {
     const gameBoard = this._gameBoard$.getValue();
-    const selectedColumn = gameBoard[column];
+    const selectedColumn = gameBoard[this.currentColumn!];
     let row = 0;
     for (let i = 1; i < selectedColumn.length; i++) {
       if (selectedColumn[i].isSelected) {
-        return gameBoard[column][row];
+        return gameBoard[this.currentColumn!][row];
       }
       row = i;
     }
-    return gameBoard[column][row];
-  }
-
-  private updateHoverState(selectable: SelectableInfo): void {
-    const gameBoard = this._gameBoard$.getValue();
-    const updatedGameBoard = [...gameBoard];
-
-    updatedGameBoard[selectable.coordinates.column][
-      selectable.coordinates.row
-    ] = { ...selectable, isHovered: true };
-
-    this._gameBoard$.next(updatedGameBoard);
+    return gameBoard[this.currentColumn!][row];
   }
 }

@@ -1,5 +1,5 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
-import {ControllerService} from '../../services/controller/controller.service';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ControllerService } from '../../services/controller/controller.service';
 
 @Component({
   selector: 'app-game-board',
@@ -10,11 +10,11 @@ import {ControllerService} from '../../services/controller/controller.service';
 export class GameBoardComponent {
   public gameBoard$ = this.controllerService.getGameBoard$();
 
-  constructor(private controllerService: ControllerService) {
-  }
+  constructor(private controllerService: ControllerService) {}
 
   public onMouseenter(column: number): void {
-    this.controllerService.hoverOnColumn(column);
+    this.controllerService.setColumn(column);
+    this.controllerService.OnHoverColumn();
   }
 
   public onMouseLeave(): void {
