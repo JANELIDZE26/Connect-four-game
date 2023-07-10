@@ -33,7 +33,7 @@ export class GameBoardService {
 
   public onPlay(): void {
     this.hoveredSelectable!.isSelected = true;
-    this.activateHoverState();
+    this._gameBoard$.next(this._gameBoard$.getValue());
   }
 
   public activateHoverState(): void {
@@ -45,6 +45,9 @@ export class GameBoardService {
 
   public deactivateHoverState(): void {
     this.hoveredSelectable!.isHovered = false;
+    if (!this.isSelected) {
+      this.hoveredSelectable!.player = null;
+    }
     this.currentColumn = undefined;
   }
 
