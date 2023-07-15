@@ -1,5 +1,4 @@
 import { Coordinates, GameBoard } from 'src/app/models';
-import { GameBoardService } from './../game-board/game-board.service';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { PlayerService } from '../player/player.service';
@@ -7,27 +6,20 @@ import { PlayerService } from '../player/player.service';
 @Injectable()
 export class CheckWinnerService {
   private gameBoard!: GameBoard;
-  private coordinates!: Coordinates;
-  private count: number = 0;
 
   public checkWinner$ = new Subject<{
     gameBoard: GameBoard;
     coordinates: Coordinates;
   }>();
 
-  constructor(
-    private gameBoardService: GameBoardService,
-    private playerService: PlayerService
-  ) {
+  constructor(private playerService: PlayerService) {
     this.checkWinner$.subscribe((value) => {
       this.gameBoard = value.gameBoard;
-      this.coordinates = value.coordinates;
-      this.checkWinner();
+      this.checkWinner(value.coordinates.column, value.coordinates.row);
     });
   }
 
-  public checkWinner(): boolean {
-    const { column, row } = this.coordinates;
+  public checkWinner(column: number, row: number): boolean {
     if (
       this.checkVertically(column, row) ||
       this.checkHorizontally(column, row) ||
@@ -100,6 +92,7 @@ export class CheckWinnerService {
       ) {
         const selectable = this.gameBoard[col][rw];
         if (
+          selectable &&
           selectable.isSelected &&
           selectable.player === this.playerService.player
         ) {
@@ -127,6 +120,7 @@ export class CheckWinnerService {
       while (col >= Math.max(0, column - 3) && rw >= Math.max(0, row - 3)) {
         const selectable = this.gameBoard[col][rw];
         if (
+          selectable &&
           selectable.isSelected &&
           selectable.player === this.playerService.player
         ) {
@@ -148,5 +142,4 @@ export class CheckWinnerService {
 
     return checkFromLeftToRight() || checkFromRightToLeft();
   }
-
 }

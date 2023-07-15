@@ -30,7 +30,6 @@ export class ControllerService {
         gameBoard: this.gameBoard,
         coordinates: this.gameBoardService.currentCoordinates,
       });
-      // TODO check if the player won.
       this.playerService.switchPlayer();
       this.OnHoverColumn();
     }
