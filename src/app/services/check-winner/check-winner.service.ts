@@ -1,18 +1,152 @@
+import { Coordinates, GameBoard } from 'src/app/models';
 import { GameBoardService } from './../game-board/game-board.service';
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
+import { PlayerService } from '../player/player.service';
 
-@Injectable({
-  providedIn: 'root',
-})
+@Injectable()
 export class CheckWinnerService {
-  constructor(private gameBoardService: GameBoardService) {
-    console.log('asdsd')
-    this.gameBoardService.gameBoard$.subscribe((gameBoard) => {
-      console.log(gameBoard);
+  private gameBoard!: GameBoard;
+  private coordinates!: Coordinates;
+  private count: number = 0;
+
+  public checkWinner$ = new Subject<{
+    gameBoard: GameBoard;
+    coordinates: Coordinates;
+  }>();
+
+  constructor(
+    private gameBoardService: GameBoardService,
+    private playerService: PlayerService
+  ) {
+    this.checkWinner$.subscribe((value) => {
+      this.gameBoard = value.gameBoard;
+      this.coordinates = value.coordinates;
+      this.checkWinner();
     });
   }
 
   public checkWinner(): boolean {
+    const { column, row } = this.coordinates;
+    if (
+      this.checkVertically(column, row) ||
+      this.checkHorizontally(column, row) ||
+      this.checkDiagonally(column, row)
+    ) {
+      return true;
+    }
     return false;
   }
+
+  private checkHorizontally(column: number, row: number): boolean {
+    let count = 0;
+    for (
+      let c = Math.max(0, column - 3);
+      c <= Math.min(this.gameBoard.length - 1, column + 3);
+      c++
+    ) {
+      const selectable = this.gameBoard[c][row];
+      if (
+        selectable.isSelected &&
+        selectable.player === this.playerService.player
+      ) {
+        count++;
+
+        if (count === 4) {
+          return true;
+        }
+      } else {
+        count = 0;
+      }
+    }
+
+    return false;
+  }
+
+  private checkVertically(column: number, row: number): boolean {
+    let count = 0;
+    for (
+      let r = Math.max(0, row - 3);
+      r <= Math.min(this.gameBoard[column].length - 1, row + 3);
+      r++
+    ) {
+      const selectable = this.gameBoard[column][r];
+      if (
+        selectable.isSelected &&
+        selectable.player === this.playerService.player
+      ) {
+        count++;
+
+        if (count === 4) {
+          return true;
+        }
+      } else {
+        count = 0;
+      }
+    }
+
+    return false;
+  }
+
+  private checkDiagonally(column: number, row: number): boolean {
+    const checkFromLeftToRight = (): boolean => {
+      let col = Math.max(0, column - 3);
+      let rw = Math.min(this.gameBoard[column].length, row + 3);
+      let count = 0;
+
+      while (
+        col <= Math.min(column + 3, this.gameBoard.length - 1) &&
+        rw >= Math.max(row - 3, 0)
+      ) {
+        const selectable = this.gameBoard[col][rw];
+        if (
+          selectable.isSelected &&
+          selectable.player === this.playerService.player
+        ) {
+          count++;
+
+          if (count === 4) {
+            return true;
+          }
+        } else {
+          count = 0;
+        }
+
+        col++;
+        rw--;
+      }
+
+      return false;
+    };
+
+    const checkFromRightToLeft = (): boolean => {
+      let col = Math.min(this.gameBoard.length - 1, column + 3);
+      let rw = Math.min(this.gameBoard[column].length - 1, row + 3);
+      let count = 0;
+
+      while (col >= Math.max(0, column - 3) && rw >= Math.max(0, row - 3)) {
+        const selectable = this.gameBoard[col][rw];
+        if (
+          selectable.isSelected &&
+          selectable.player === this.playerService.player
+        ) {
+          count++;
+
+          if (count === 4) {
+            return true;
+          }
+        } else {
+          count = 0;
+        }
+
+        col--;
+        rw--;
+      }
+
+      return false;
+    };
+
+    return checkFromLeftToRight() || checkFromRightToLeft();
+  }
+
 }

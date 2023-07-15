@@ -8,7 +8,7 @@ import { ControllerService } from '../../services/controller/controller.service'
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GameBoardComponent {
-  public gameBoard$ = this.controllerService.getGameBoard$();
+  public gameBoard = this.controllerService.gameBoard;
 
   constructor(private controllerService: ControllerService) {}
 
