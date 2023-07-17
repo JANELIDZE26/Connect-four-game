@@ -3,15 +3,17 @@
     <app-player-indicator
       [playerIndicatorIconName]="PLAYER.playerOne"
       [playerIndicatorText]="PLAYER.playerOne"
+      [playerScore]="scoreboard?.[PLAYER.playerOne] || 0"
     ></app-player-indicator>
     <div class="mid-part">
       <app-control-panel></app-control-panel>
       <app-game-board></app-game-board>
-      <app-dashboard></app-dashboard>
+      <app-dashboard [player]="currentPlayer"></app-dashboard>
     </div>
     <app-player-indicator
       [playerIndicatorIconName]="PLAYER.playerTwo"
       [playerIndicatorText]="PLAYER.playerTwo"
+      [playerScore]="scoreboard?.[PLAYER.playerTwo] || 0"
     ></app-player-indicator>
   </div>
 </div>

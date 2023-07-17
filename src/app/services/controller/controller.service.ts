@@ -1,4 +1,4 @@
-import { CheckWinnerService } from './../check-winner/check-winner.service';
+import { ScoringService } from '../check-winner/scoring.service';
 import { Injectable } from '@angular/core';
 import { GameBoard, Player, SelectableInfo } from '@models/models';
 import { Subject } from 'rxjs';
@@ -12,7 +12,7 @@ export class ControllerService {
   constructor(
     private gameBoardService: GameBoardService,
     private playerService: PlayerService,
-    private CheckWinnerService: CheckWinnerService
+    private scoringService: ScoringService
   ) {}
 
   public get currentPlayer(): Player {
@@ -26,11 +26,10 @@ export class ControllerService {
   public play(): void {
     if (!this.gameBoardService.isSelected) {
       this.gameBoardService.onPlay();
-      this.CheckWinnerService.checkWinner$.next({
+      this.scoringService.checkWinner$.next({
         gameBoard: this.gameBoard,
         coordinates: this.gameBoardService.currentCoordinates,
       });
-      this.playerService.switchPlayer();
       this.OnHoverColumn();
     }
   }

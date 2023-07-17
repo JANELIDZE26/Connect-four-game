@@ -1,11 +1,23 @@
-import { Coordinates, GameBoard } from 'src/app/models';
-import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Coordinates, GameBoard, Player, Scoreboard } from 'src/app/models';
+import { Injectable, OnDestroy } from '@angular/core';
+import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
 import { PlayerService } from '../player/player.service';
 
 @Injectable()
-export class CheckWinnerService {
+export class ScoringService implements OnDestroy {
   private gameBoard!: GameBoard;
+  private unsubscribes$: Subject<void> = new Subject();
+  private _scoreBoard$ = new BehaviorSubject<Scoreboard>({
+    'player-one': 0,
+    'player-two': 0,
+  });
+
+  public scoreBoard$ = this._scoreBoard$.asObservable();
+  public playerWon$ = new Subject<boolean>();
+
+  public get scoreboard(): Scoreboard {
+    return this._scoreBoard$.getValue();
+  }
 
   public checkWinner$ = new Subject<{
     gameBoard: GameBoard;
@@ -13,21 +25,34 @@ export class CheckWinnerService {
   }>();
 
   constructor(private playerService: PlayerService) {
-    this.checkWinner$.subscribe((value) => {
+    this.checkWinner$.pipe(takeUntil(this.unsubscribes$)).subscribe((value) => {
       this.gameBoard = value.gameBoard;
       this.checkWinner(value.coordinates.column, value.coordinates.row);
     });
   }
 
-  public checkWinner(column: number, row: number): boolean {
+  ngOnDestroy(): void {
+    this.unsubscribes$.next();
+    this.unsubscribes$.complete();
+  }
+
+  public checkWinner(column: number, row: number): void {
     if (
       this.checkVertically(column, row) ||
       this.checkHorizontally(column, row) ||
       this.checkDiagonally(column, row)
     ) {
-      return true;
+      this.increaseScore();
+      this._scoreBoard$.next(this.scoreboard);
+      this.playerWon$.next(true);
     }
-    return false;
+    this.playerService.switchPlayer();
+  }
+
+  private increaseScore() {
+    const scoreBoard = this._scoreBoard$.getValue();
+
+    scoreBoard[this.playerService.player]++;
   }
 
   private checkHorizontally(column: number, row: number): boolean {

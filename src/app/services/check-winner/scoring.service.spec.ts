@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { CheckWinnerService } from './check-winner.service';
+import { ScoringService } from './scoring.service';
 
 describe('CheckWinnerService', () => {
-  let service: CheckWinnerService;
+  let service: ScoringService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(CheckWinnerService);
+    service = TestBed.inject(ScoringService);
   });
 
   it('should be created', () => {
