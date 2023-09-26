@@ -1,34 +1,17 @@
 import { Coordinates, GameBoard, Player, Scoreboard } from 'src/app/models';
 import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
-import { PlayerService } from '../player/player.service';
 
 @Injectable()
 export class ScoringService implements OnDestroy {
-  private gameBoard!: GameBoard;
   private unsubscribes$: Subject<void> = new Subject();
-  private _scoreBoard$ = new BehaviorSubject<Scoreboard>({
+  private _scoreBoard = {
     'player-one': 0,
     'player-two': 0,
-  });
+  };
 
-  public scoreBoard$ = this._scoreBoard$.asObservable();
-  public playerWon$ = new Subject<boolean>();
-
-  public get scoreboard(): Scoreboard {
-    return this._scoreBoard$.getValue();
-  }
-
-  public checkWinner$ = new Subject<{
-    gameBoard: GameBoard;
-    coordinates: Coordinates;
-  }>();
-
-  constructor(private playerService: PlayerService) {
-    this.checkWinner$.pipe(takeUntil(this.unsubscribes$)).subscribe((value) => {
-      this.gameBoard = value.gameBoard;
-      this.checkWinner(value.coordinates.column, value.coordinates.row);
-    });
+  public get scoreBoard(): Scoreboard {
+    return this._scoreBoard;
   }
 
   ngOnDestroy(): void {
@@ -36,37 +19,40 @@ export class ScoringService implements OnDestroy {
     this.unsubscribes$.complete();
   }
 
-  public checkWinner(column: number, row: number): void {
+  public checkWinner(
+    gameBoard: GameBoard,
+    coordinates: Coordinates,
+    player: Player
+  ): boolean {
     if (
-      this.checkVertically(column, row) ||
-      this.checkHorizontally(column, row) ||
-      this.checkDiagonally(column, row)
+      this.checkVertically(gameBoard, coordinates, player) ||
+      this.checkHorizontally(gameBoard, coordinates, player) ||
+      this.checkDiagonally(gameBoard, coordinates, player)
     ) {
-      this.increaseScore();
-      this._scoreBoard$.next(this.scoreboard);
-      this.playerWon$.next(true);
+      this.increaseScore(player);
+      return true;
     }
-    this.playerService.switchPlayer();
+    return false;
   }
 
-  private increaseScore() {
-    const scoreBoard = this._scoreBoard$.getValue();
-
-    scoreBoard[this.playerService.player]++;
+  private increaseScore(player: Player) {
+    this.scoreBoard[player as keyof typeof this.scoreBoard]++;
   }
 
-  private checkHorizontally(column: number, row: number): boolean {
+  private checkHorizontally(
+    gameBoard: GameBoard,
+    coordinates: Coordinates,
+    player: Player
+  ): boolean {
+    const { column, row } = coordinates;
     let count = 0;
     for (
       let c = Math.max(0, column - 3);
-      c <= Math.min(this.gameBoard.length - 1, column + 3);
+      c <= Math.min(gameBoard.length - 1, column + 3);
       c++
     ) {
-      const selectable = this.gameBoard[c][row];
-      if (
-        selectable.isSelected &&
-        selectable.player === this.playerService.player
-      ) {
+      const selectable = gameBoard[c][row];
+      if (selectable.isSelected && selectable.player === player) {
         count++;
 
         if (count === 4) {
@@ -80,18 +66,20 @@ export class ScoringService implements OnDestroy {
     return false;
   }
 
-  private checkVertically(column: number, row: number): boolean {
+  private checkVertically(
+    gameBoard: GameBoard,
+    coordinates: Coordinates,
+    player: Player
+  ): boolean {
+    const { column, row } = coordinates;
     let count = 0;
     for (
       let r = Math.max(0, row - 3);
-      r <= Math.min(this.gameBoard[column].length - 1, row + 3);
+      r <= Math.min(gameBoard[column].length - 1, row + 3);
       r++
     ) {
-      const selectable = this.gameBoard[column][r];
-      if (
-        selectable.isSelected &&
-        selectable.player === this.playerService.player
-      ) {
+      const selectable = gameBoard[column][r];
+      if (selectable.isSelected && selectable.player === player) {
         count++;
 
         if (count === 4) {
@@ -105,21 +93,26 @@ export class ScoringService implements OnDestroy {
     return false;
   }
 
-  private checkDiagonally(column: number, row: number): boolean {
+  private checkDiagonally(
+    gameBoard: GameBoard,
+    coordinates: Coordinates,
+    player: Player
+  ): boolean {
+    const { column, row } = coordinates;
     const checkFromLeftToRight = (): boolean => {
       let col = Math.max(0, column - 3);
-      let rw = Math.min(this.gameBoard[column].length, row + 3);
+      let rw = Math.min(gameBoard[column].length, row + 3);
       let count = 0;
 
       while (
-        col <= Math.min(column + 3, this.gameBoard.length - 1) &&
+        col <= Math.min(column + 3, gameBoard.length - 1) &&
         rw >= Math.max(row - 3, 0)
       ) {
-        const selectable = this.gameBoard[col][rw];
+        const selectable = gameBoard[col][rw];
         if (
           selectable &&
           selectable.isSelected &&
-          selectable.player === this.playerService.player
+          selectable.player === player
         ) {
           count++;
 
@@ -138,16 +131,16 @@ export class ScoringService implements OnDestroy {
     };
 
     const checkFromRightToLeft = (): boolean => {
-      let col = Math.min(this.gameBoard.length - 1, column + 3);
-      let rw = Math.min(this.gameBoard[column].length - 1, row + 3);
+      let col = Math.min(gameBoard.length - 1, column + 3);
+      let rw = Math.min(gameBoard[column].length - 1, row + 3);
       let count = 0;
 
       while (col >= Math.max(0, column - 3) && rw >= Math.max(0, row - 3)) {
-        const selectable = this.gameBoard[col][rw];
+        const selectable = gameBoard[col][rw];
         if (
           selectable &&
           selectable.isSelected &&
-          selectable.player === this.playerService.player
+          selectable.player === player
         ) {
           count++;
 

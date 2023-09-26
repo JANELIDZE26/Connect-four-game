@@ -1,4 +1,5 @@
 @import "../../../shared/styles/colors";
+@import "../../../shared/styles/components";
 
 .dashboard {
   width: 20rem;
@@ -15,10 +16,36 @@
   color: $white;
 
   &.playerTwo {
-    background: url("../../../assets/images/turn-background-yellow.svg") no-repeat;
+    background: url("../../../assets/images/turn-background-yellow.svg")
+      no-repeat;
 
     .text {
       color: $black;
+    }
+  }
+
+  &.winnerState {
+    border: 3px solid $black;
+    background: $white;
+    color: $black;
+    box-shadow: 0px 10px 0px 0px #000;
+    width: 28.5rem;
+    height: 16rem;
+    border-radius: 2rem;
+    bottom: -13rem;
+    text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .wins {
+      font-size: 5.6rem;
+    }
+
+    .button:hover {
+      background: $purple;
+      cursor: pointer;
     }
   }
 

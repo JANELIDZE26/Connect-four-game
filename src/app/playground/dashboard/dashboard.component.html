@@ -1,6 +1,20 @@
-<div [ngClass]="{ playerTwo: player === PLAYER.playerTwo }" class="dashboard">
+<div
+  *ngIf="!hasPlayerWon; else winnerState"
+  [ngClass]="{ playerTwo: player === PLAYER.playerTwo }"
+  class="dashboard"
+>
   <span class="text"
-  >Player {{ player === PLAYER.playerOne ? "1" : "2" }}'s turn</span
+    >Player {{ player === PLAYER.playerOne ? "1" : "2" }}'s turn</span
   >
   <span class="countDown"></span>
 </div>
+
+<ng-template #winnerState>
+  <div class="dashboard winnerState text">
+    <div class="player text">
+      Player {{ player === PLAYER.playerOne ? "1" : "2" }}
+    </div>
+    <div class="wins text">wins</div>
+    <button class="text button" (click)="playAgain()">play again</button>
+  </div>
+</ng-template>

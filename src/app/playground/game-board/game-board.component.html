@@ -1,12 +1,12 @@
 <div class="layer">
-  <ng-container *ngIf="gameBoard">
+  <ng-container *ngIf="gameBoard$ | async as gameBoard">
     <div
       (mouseenter)="onMouseenter(i)"
       (mouseleave)="onMouseLeave()"
       (click)="onClickColumn()"
-      *ngFor="let column of gameBoard; let i = index"
+      *ngFor="let column of gameBoard; trackBy: trackById; let i = index"
     >
-      <ng-container *ngFor="let selectable of gameBoard[i]">
+      <ng-container *ngFor="let selectable of gameBoard[i]; trackBy: trackById">
         <app-selectable
           [player]="selectable.player"
           [isHovered]="selectable.isHovered"

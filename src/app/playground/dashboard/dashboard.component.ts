@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { Player } from '@models/models';
+import { ControllerService } from 'src/app/services/controller/controller.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,4 +12,11 @@ export class DashboardComponent {
   public readonly PLAYER = Player;
   public timer: number | undefined;
   @Input() player: Player = Player.playerOne;
+  @Input() hasPlayerWon: boolean = false;
+
+  constructor(private controllerService: ControllerService) {}
+
+  playAgain(): void {
+    this.controllerService.playAgain();
+  }
 }

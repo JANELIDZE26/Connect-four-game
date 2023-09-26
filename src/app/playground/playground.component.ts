@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { Player, Scoreboard } from '@models/models';
 import { ControllerService } from '../services/controller/controller.service';
 import { ScoringService } from '../services/check-winner/scoring.service';
 import { GameBoardService } from '../services/game-board/game-board.service';
 import { PlayerService } from '../services/player/player.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-playground',
@@ -17,15 +18,16 @@ export class PlaygroundComponent {
   public scoreboard: Scoreboard | undefined;
 
   get currentPlayer(): Player {
-    return this.playerService.player;
+    return this.controllerService.currentPlayer;
+  }
+
+  get hasPlayerWon$(): Observable<boolean> {
+    return this.controllerService.playerWon$.asObservable();
   }
 
   constructor(
-    private scoringService: ScoringService,
-    private playerService: PlayerService
+    private controllerService: ControllerService
   ) {
-    this.scoringService.scoreBoard$.subscribe((scoreBoard) => {
-      this.scoreboard = scoreBoard;
-    });
+    this.scoreboard = this.controllerService.scoreBoard;
   }
 }

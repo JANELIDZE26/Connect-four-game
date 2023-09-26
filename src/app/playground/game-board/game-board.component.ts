@@ -8,7 +8,7 @@ import { ControllerService } from '../../services/controller/controller.service'
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GameBoardComponent {
-  public gameBoard = this.controllerService.gameBoard;
+  public gameBoard$ = this.controllerService.gameBoard$;
 
   constructor(private controllerService: ControllerService) {}
 
@@ -18,10 +18,15 @@ export class GameBoardComponent {
   }
 
   public onMouseLeave(): void {
+    console.log('asldkhjasdl;kjasd');
     this.controllerService.leaveHover();
   }
 
   public onClickColumn(): void {
     this.controllerService.play();
+  }
+
+  public trackById(item: any): number {
+    return item;
   }
 }

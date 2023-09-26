@@ -8,7 +8,10 @@
     <div class="mid-part">
       <app-control-panel></app-control-panel>
       <app-game-board></app-game-board>
-      <app-dashboard [player]="currentPlayer"></app-dashboard>
+      <app-dashboard
+        [player]="currentPlayer"
+        [hasPlayerWon]="(hasPlayerWon$ | async)!"
+      ></app-dashboard>
     </div>
     <app-player-indicator
       [playerIndicatorIconName]="PLAYER.playerTwo"

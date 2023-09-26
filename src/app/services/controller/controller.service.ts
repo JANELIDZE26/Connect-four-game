@@ -1,13 +1,14 @@
 import { ScoringService } from '../check-winner/scoring.service';
 import { Injectable } from '@angular/core';
-import { GameBoard, Player, SelectableInfo } from '@models/models';
-import { Subject } from 'rxjs';
+import { GameBoard, Player, Scoreboard, SelectableInfo } from '@models/models';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { GameBoardService } from '../game-board/game-board.service';
 import { PlayerService } from '../player/player.service';
 
 @Injectable()
 export class ControllerService {
-  play$ = new Subject<SelectableInfo>();
+  public play$ = new Subject<SelectableInfo>();
+  public playerWon$ = new BehaviorSubject<boolean>(false);
 
   constructor(
     private gameBoardService: GameBoardService,
@@ -19,17 +20,28 @@ export class ControllerService {
     return this.playerService.player;
   }
 
-  public get gameBoard(): GameBoard {
-    return this.gameBoardService.getGameBoard();
+  public get gameBoard$(): BehaviorSubject<GameBoard | null> {
+    return this.gameBoardService.gameBoard$;
+  }
+
+  public get scoreBoard(): Scoreboard {
+    return this.scoringService.scoreBoard;
   }
 
   public play(): void {
     if (!this.gameBoardService.isSelected) {
       this.gameBoardService.onPlay();
-      this.scoringService.checkWinner$.next({
-        gameBoard: this.gameBoard,
-        coordinates: this.gameBoardService.currentCoordinates,
-      });
+      const playerWon: boolean = this.scoringService.checkWinner(
+        this.gameBoard$.getValue()!,
+        this.gameBoardService.currentCoordinates,
+        this.playerService.player
+      );
+      if (playerWon) {
+        this.gameBoardService.isGamePaused = true;
+        this.playerWon$.next(true);
+      } else {
+        this.playerService.switchPlayer();
+      }
       this.OnHoverColumn();
     }
   }
@@ -39,10 +51,16 @@ export class ControllerService {
   }
 
   public OnHoverColumn(): void {
-    this.gameBoardService.activateHoverState();
+    this.gameBoardService.activateHoverState(this.currentPlayer);
   }
 
   public leaveHover(): void {
     this.gameBoardService.deactivateHoverState();
+  }
+
+  public playAgain(): void {
+    this.gameBoardService.initGameBoard();
+    this.playerService.switchPlayer();
+    this.playerWon$.next(false)
   }
 }
