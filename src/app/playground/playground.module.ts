@@ -6,7 +6,6 @@ import { GameBoardComponent } from './game-board/game-board.component';
 import { ControlPanelComponent } from './control-panel/control-panel.component';
 import { RouterModule } from '@angular/router';
 import { PlaygroundComponent } from './playground.component';
-import { PointerComponent } from './game-board/pointer/pointer.component';
 import { SelectableComponent } from './selectable/selectable.component';
 
 @NgModule({
@@ -16,7 +15,6 @@ import { SelectableComponent } from './selectable/selectable.component';
     GameBoardComponent,
     ControlPanelComponent,
     PlaygroundComponent,
-    PointerComponent,
     SelectableComponent,
   ],
   imports: [

@@ -28,7 +28,7 @@ export class ControllerService {
     return this.scoringService.scoreBoard$;
   }
 
-  public resetScoreBoard(): void {
+  private resetScoreBoard(): void {
     this.scoringService.resetScoreBoard();
   }
 
@@ -64,14 +64,14 @@ export class ControllerService {
 
   public playAgain(): void {
     this.gameBoardService.initGameBoard();
-    this.playerService.switchPlayer();
     this.playerWon$.next(false);
+    this.playerService.switchPlayer();
   }
 
   public restartGame(): void {
     this.gameBoardService.initGameBoard();
-    this.playerService.player = Player.playerOne;
     this.playerWon$.next(false);
+    this.playerService.player = Player.playerOne;
     this.resetScoreBoard();
   }
 }
