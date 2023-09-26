@@ -1,17 +1,20 @@
 import { Coordinates, GameBoard, Player, Scoreboard } from 'src/app/models';
 import { Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, Subject, takeUntil } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, takeUntil } from 'rxjs';
 
 @Injectable()
 export class ScoringService implements OnDestroy {
   private unsubscribes$: Subject<void> = new Subject();
-  private _scoreBoard = {
+  private readonly DEFAULT_SCORE_BOARD = {
     'player-one': 0,
     'player-two': 0,
   };
+  private _scoreBoard$ = new BehaviorSubject<Scoreboard>(
+    this.DEFAULT_SCORE_BOARD
+  );
 
-  public get scoreBoard(): Scoreboard {
-    return this._scoreBoard;
+  public get scoreBoard$(): Observable<Scoreboard> {
+    return this._scoreBoard$.asObservable();
   }
 
   ngOnDestroy(): void {
@@ -35,8 +38,14 @@ export class ScoringService implements OnDestroy {
     return false;
   }
 
+  public resetScoreBoard(): void {
+    this._scoreBoard$.next(this.DEFAULT_SCORE_BOARD);
+  }
+
   private increaseScore(player: Player) {
-    this.scoreBoard[player as keyof typeof this.scoreBoard]++;
+    const scoreBoard = { ...this._scoreBoard$.getValue() };
+    scoreBoard[player]++;
+    this._scoreBoard$.next(scoreBoard);
   }
 
   private checkHorizontally(

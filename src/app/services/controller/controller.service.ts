@@ -24,8 +24,12 @@ export class ControllerService {
     return this.gameBoardService.gameBoard$;
   }
 
-  public get scoreBoard(): Scoreboard {
-    return this.scoringService.scoreBoard;
+  public get scoreBoard$(): Observable<Scoreboard> {
+    return this.scoringService.scoreBoard$;
+  }
+
+  public resetScoreBoard(): void {
+    this.scoringService.resetScoreBoard();
   }
 
   public play(): void {
@@ -61,6 +65,13 @@ export class ControllerService {
   public playAgain(): void {
     this.gameBoardService.initGameBoard();
     this.playerService.switchPlayer();
-    this.playerWon$.next(false)
+    this.playerWon$.next(false);
+  }
+
+  public restartGame(): void {
+    this.gameBoardService.initGameBoard();
+    this.playerService.player = Player.playerOne;
+    this.playerWon$.next(false);
+    this.resetScoreBoard();
   }
 }

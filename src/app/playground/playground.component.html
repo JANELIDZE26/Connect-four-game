@@ -9,7 +9,7 @@
     <app-player-indicator
       [playerIndicatorIconName]="PLAYER.playerOne"
       [playerIndicatorText]="PLAYER.playerOne"
-      [playerScore]="scoreboard?.[PLAYER.playerOne] || 0"
+      [playerScore]="(scoreBoard$ | async)?.[PLAYER.playerOne] || 0"
     ></app-player-indicator>
     <div class="mid-part">
       <app-control-panel></app-control-panel>
@@ -22,7 +22,7 @@
     <app-player-indicator
       [playerIndicatorIconName]="PLAYER.playerTwo"
       [playerIndicatorText]="PLAYER.playerTwo"
-      [playerScore]="scoreboard?.[PLAYER.playerTwo] || 0"
+      [playerScore]="(scoreBoard$ | async)?.[PLAYER.playerTwo] || 0"
     ></app-player-indicator>
   </div>
 </div>

@@ -25,9 +25,9 @@ export class PlaygroundComponent {
     return this.controllerService.playerWon$.asObservable();
   }
 
-  constructor(
-    private controllerService: ControllerService
-  ) {
-    this.scoreboard = this.controllerService.scoreBoard;
+  get scoreBoard$() {
+    return this.controllerService.scoreBoard$;
   }
+
+  constructor(private controllerService: ControllerService) {}
 }
