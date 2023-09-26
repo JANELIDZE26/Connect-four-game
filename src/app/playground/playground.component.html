@@ -1,4 +1,10 @@
-<div class="background">
+<div
+  class="background"
+  [ngClass]="[
+    (hasPlayerWon$ | async) ? 'playerWon' : '',
+    currentPlayer === PLAYER.playerOne ? 'playerOne' : 'playerTwo'
+  ]"
+>
   <div class="container">
     <app-player-indicator
       [playerIndicatorIconName]="PLAYER.playerOne"

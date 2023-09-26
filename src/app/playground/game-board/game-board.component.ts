@@ -18,7 +18,6 @@ export class GameBoardComponent {
   }
 
   public onMouseLeave(): void {
-    console.log('asldkhjasdl;kjasd');
     this.controllerService.leaveHover();
   }
 
