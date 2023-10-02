@@ -14,3 +14,11 @@ html {
 body {
   font-family: "Space Grotesk", sans-serif;
 }
+
+ngneat-dialog {
+  .ngneat-dialog-content {
+    width: 40rem !important;
+    height: 36.6875rem !important;
+    border-radius: 2.5rem;
+  }
+}

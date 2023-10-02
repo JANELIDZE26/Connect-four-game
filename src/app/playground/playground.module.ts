@@ -7,6 +7,10 @@ import { ControlPanelComponent } from './control-panel/control-panel.component';
 import { RouterModule } from '@angular/router';
 import { PlaygroundComponent } from './playground.component';
 import { SelectableComponent } from './selectable/selectable.component';
+import { MenuPopupComponent } from './menu-popup/menu-popup.component';
+import { GameBoardService } from '../services/game-board/game-board.service';
+import { ScoringService } from '../services/check-winner/scoring.service';
+import { ControllerService } from '../services/controller/controller.service';
 
 @NgModule({
   declarations: [
@@ -16,6 +20,7 @@ import { SelectableComponent } from './selectable/selectable.component';
     ControlPanelComponent,
     PlaygroundComponent,
     SelectableComponent,
+    MenuPopupComponent,
   ],
   imports: [
     CommonModule,

@@ -1,0 +1,66 @@
+@import "../../../shared/styles/colors.scss";
+
+:host {
+  height: 100%;
+}
+
+.menu-popup {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: $purple;
+  border-radius: 2.5rem;
+  border: 3px solid $black;
+  box-shadow: 0px 10px 0px 0px $black;
+  padding: 3rem 2rem;
+
+  .title {
+    font-size: 3.5rem;
+    line-height: normal;
+    color: $white;
+  }
+
+  .options {
+    width: 100%;
+    margin-top: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .option {
+      font-size: 1.5rem;
+      font-weight: 700;
+      border-radius: 1.25rem;
+      border: 3px solid $black;
+      box-shadow: 0px 10px 0px 0px $black;
+      background: $white;
+      width: 75%;
+      color: $black;
+      margin-bottom: 3rem;
+      text-align: center;
+      padding: 1.5rem 2rem;
+      cursor: pointer;
+
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      -o-user-select: none;
+      user-select: none;
+      transition: all 0.1s;
+
+      &:active {
+        transform: translateY(1rem);
+        box-shadow: 0px 0px 0px 0px $black;
+      }
+
+      &.quit-game {
+        background: $red;
+        color: $white;
+      }
+    }
+  }
+}

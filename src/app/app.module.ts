@@ -1,10 +1,10 @@
-import {NgModule} from '@angular/core';
-import {BrowserModule} from '@angular/platform-browser';
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 
-import {AppRoutingModule} from './app-routing.module';
-import {AppComponent} from './app.component';
-import {MainMenuComponent} from './main-menu/main-menu.component';
-import {RulesComponent} from './rules/rules.component';
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { MainMenuComponent } from './main-menu/main-menu.component';
+import { RulesComponent } from './rules/rules.component';
 
 @NgModule({
   declarations: [AppComponent, MainMenuComponent, RulesComponent],
@@ -12,5 +12,4 @@ import {RulesComponent} from './rules/rules.component';
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule {
-}
+export class AppModule {}
