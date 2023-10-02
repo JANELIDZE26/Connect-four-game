@@ -49,7 +49,7 @@ export class PlaygroundComponent implements OnInit {
 
   ngOnInit(): void {
     this.observer
-      .observe('(min-width: 500px) and (max-width: 1060px)')
+      .observe('(max-width: 1060px)')
       .subscribe(({ matches }) => {
         this.isTablet = matches;
         this.changeDetectionRef.detectChanges();

@@ -7,6 +7,7 @@ import {
   SelectableInfo,
 } from '@models/models';
 import { BehaviorSubject } from 'rxjs';
+import { isNullish } from '@utils';
 
 @Injectable()
 export class GameBoardService {
@@ -33,7 +34,7 @@ export class GameBoardService {
   }
 
   public activateHoverState(player: Player): void {
-    if (this.isGamePaused || !this.currentColumn) return;
+    if (this.isGamePaused || isNullish(this.currentColumn)) return;
     this.hoveredSelectable = { ...this.getFirstAvailableSelectable() };
     if (this.isSelected) return;
     const gameBoard = JSON.parse(JSON.stringify(this.gameBoard$.getValue()));
@@ -45,7 +46,7 @@ export class GameBoardService {
   }
 
   public deactivateHoverState(): void {
-    if(!this.currentColumn) return;
+    if (isNullish(this.currentColumn)) return;
     this.hoveredSelectable!.isHovered = false;
     if (!this.isSelected) {
       this.hoveredSelectable!.player = null;

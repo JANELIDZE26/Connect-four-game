@@ -18,4 +18,10 @@
     width: 57rem;
     height: 48rem;
   }
+  
+  @media (max-width: 630px) {
+    width: 36rem;
+    height: 35rem;
+    gap: 1rem;
+  }
 }

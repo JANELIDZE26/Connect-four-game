@@ -32,7 +32,7 @@
     &.playerOne::after {
       background: $red;
     }
-    
+
     &.playerTwo::after {
       background: $yellow;
     }
@@ -42,5 +42,10 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 4rem;
+
+    @media (max-width: 630px) {
+      gap: 3rem;
+      justify-content: center;
+    }
   }
 }

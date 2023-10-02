@@ -47,8 +47,34 @@
       left: 0;
       transform: translate(-50%, -50%);
     }
+
     &.player-two .player-indicator-icon {
       left: 100%;
+    }
+  }
+
+  @media (max-width: 630px) {
+    flex-direction: row;
+    justify-content: center;
+    padding: 1rem;
+    width: 14rem;
+    gap: 0rem;
+    flex-direction: column;
+
+    .player-indicator-text {
+      font-size: 1.5rem;
+    }
+
+    .player-score {
+      font-size: 3.6rem;
+    }
+
+    .player-indicator-icon {
+      width: 4rem;
+
+      img {
+        width: 100%;
+      }
     }
   }
 }
