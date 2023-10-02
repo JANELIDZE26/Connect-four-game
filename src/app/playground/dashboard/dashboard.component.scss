@@ -13,11 +13,13 @@
   align-items: center;
   flex-direction: column;
   background: url("../../../assets/images/turn-background-red.svg") no-repeat;
+  background-size: contain;
   color: $white;
 
   &.playerTwo {
     background: url("../../../assets/images/turn-background-yellow.svg")
       no-repeat;
+    background-size: contain;
 
     .text {
       color: $black;
@@ -59,5 +61,31 @@
   .countdown {
     font-size: 3.5rem;
     margin-top: 1rem;
+  }
+
+  @media (max-width: 630px) {
+    width: 13rem;
+    height: 11rem;
+    bottom: -9rem;
+
+    .text {
+      font-size: 1.2rem;
+    }
+
+    .countdown {
+      font-size: 2.5rem;
+      margin-top: 1rem;
+    }
+
+    &.winnerState {
+      width: 18.5rem;
+      height: 10rem;
+      border-radius: 2rem;
+      bottom: -8rem;
+
+      .wins {
+        font-size: 2.6rem;
+      }
+    }
   }
 }
