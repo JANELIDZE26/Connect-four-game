@@ -21,7 +21,7 @@ export class ControlPanelComponent {
     this.dialog.open(MenuPopupComponent, {
       closeButton: false,
       enableClose: false,
-      data: this.controllerService
+      data: this.controllerService,
     });
   }
 }

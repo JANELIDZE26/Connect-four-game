@@ -33,7 +33,7 @@ export class GameBoardService {
   }
 
   public activateHoverState(player: Player): void {
-    if (this.isGamePaused) return;
+    if (this.isGamePaused || !this.currentColumn) return;
     this.hoveredSelectable = { ...this.getFirstAvailableSelectable() };
     if (this.isSelected) return;
     const gameBoard = JSON.parse(JSON.stringify(this.gameBoard$.getValue()));

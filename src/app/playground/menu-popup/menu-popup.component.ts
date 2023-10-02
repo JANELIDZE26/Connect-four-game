@@ -1,7 +1,12 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnInit,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { DialogRef, DialogService } from '@ngneat/dialog';
-import { ControllerService } from 'src/app/services/controller/controller.service';
+import { ControllerService } from '@services';
 
 @Component({
   selector: 'app-menu-popup',
@@ -9,17 +14,20 @@ import { ControllerService } from 'src/app/services/controller/controller.servic
   styleUrls: ['./menu-popup.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MenuPopupComponent {
+export class MenuPopupComponent implements OnInit {
   private dialog = inject(DialogService);
-  private dialogRef = inject(DialogRef)
-  private controllerService = this.dialogRef.data;
+  private dialogRef = inject(DialogRef);
+  private controllerService: ControllerService = this.dialogRef.data;
 
-  constructor(
-    private router: Router
-  ) {}
+  constructor(private router: Router) {}
+
+  ngOnInit() {
+    this.controllerService.pauseCountdown();
+  }
 
   public onContinueGame(): void {
     this.dialog.closeAll();
+    this.controllerService.setCountdown();
   }
 
   public onRestartClicked(): void {

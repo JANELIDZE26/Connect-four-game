@@ -39,6 +39,11 @@ export class ControllerService {
     this.timerService.setCountdown();
   }
 
+  public pauseCountdown(): void {
+    this.timerService.clearInterval();
+  }
+  
+
   public timeExpired(): void {
     this.playerService.switchPlayer();
     this.timerService.resetInterval();

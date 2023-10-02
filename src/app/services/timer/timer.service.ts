@@ -4,6 +4,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 @Injectable()
 export class TimerService implements OnDestroy {
   private time = 30;
+  private pausedTime: number | undefined;
   private _countdown$ = new BehaviorSubject<number>(this.time);
   private interval: undefined | NodeJS.Timer;
 
