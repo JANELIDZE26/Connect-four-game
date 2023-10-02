@@ -21,15 +21,26 @@
     box-shadow: inset 0 5px $black;
   }
 
-  @media (max-width: 630px) {
+  @media (max-width: 530px) {
     margin-bottom: 1.5rem;
     width: 3.6rem;
     height: 3.6rem;
     box-shadow: inset 0 5px $black;
   }
 
-  &.selected,
-  &.hovered {
+  @media (hover: hover) {
+    &.hovered {
+      &.playerOne {
+        background: $red;
+      }
+
+      &.playerTwo {
+        background: $yellow;
+      }
+    }
+  }
+
+  &.selected {
     &.playerOne {
       background: $red;
     }
