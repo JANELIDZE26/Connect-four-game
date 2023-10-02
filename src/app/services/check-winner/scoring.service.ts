@@ -1,6 +1,6 @@
 import { Coordinates, GameBoard, Player, Scoreboard } from 'src/app/models';
 import { Injectable, OnDestroy } from '@angular/core';
-import { BehaviorSubject, Observable, Subject, takeUntil } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 @Injectable()
 export class ScoringService implements OnDestroy {

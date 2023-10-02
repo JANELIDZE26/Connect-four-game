@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { DialogRef, DialogService } from '@ngneat/dialog';
+import { DialogService } from '@ngneat/dialog';
 import { ControllerService } from 'src/app/services/controller/controller.service';
 import { MenuPopupComponent } from '../menu-popup/menu-popup.component';
 

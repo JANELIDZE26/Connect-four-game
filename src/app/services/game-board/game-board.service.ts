@@ -6,7 +6,7 @@ import {
   Player,
   SelectableInfo,
 } from '@models/models';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable()
 export class GameBoardService {
