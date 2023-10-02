@@ -1,9 +1,7 @@
-import { ScoringService } from '../check-winner/scoring.service';
 import { Injectable } from '@angular/core';
 import { GameBoard, Player, Scoreboard, SelectableInfo } from '@models/models';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
-import { GameBoardService } from '../game-board/game-board.service';
-import { PlayerService } from '../player/player.service';
+import * as Services from '@services';
 
 @Injectable()
 export class ControllerService {
@@ -11,9 +9,10 @@ export class ControllerService {
   public playerWon$ = new BehaviorSubject<boolean>(false);
 
   constructor(
-    private gameBoardService: GameBoardService,
-    private playerService: PlayerService,
-    private scoringService: ScoringService
+    private gameBoardService: Services.GameBoardService,
+    private playerService: Services.PlayerService,
+    private scoringService: Services.ScoringService,
+    private timerService: Services.TimerService
   ) {}
 
   public get currentPlayer(): Player {
@@ -28,8 +27,22 @@ export class ControllerService {
     return this.scoringService.scoreBoard$;
   }
 
+  public get countdown$(): Observable<number> {
+    return this.timerService.countdown$;
+  }
+
   private resetScoreBoard(): void {
     this.scoringService.resetScoreBoard();
+  }
+
+  public setCountdown(): void {
+    this.timerService.setCountdown();
+  }
+
+  public timeExpired(): void {
+    this.playerService.switchPlayer();
+    this.timerService.resetInterval();
+    this.gameBoardService.activateHoverState(this.currentPlayer);
   }
 
   public play(): void {
@@ -42,9 +55,11 @@ export class ControllerService {
       );
       if (playerWon) {
         this.gameBoardService.isGamePaused = true;
+        this.timerService.clearInterval();
         this.playerWon$.next(true);
       } else {
         this.playerService.switchPlayer();
+        this.timerService.resetInterval();
       }
       this.OnHoverColumn();
     }
@@ -66,6 +81,7 @@ export class ControllerService {
     this.gameBoardService.initGameBoard();
     this.playerWon$.next(false);
     this.playerService.switchPlayer();
+    this.timerService.resetInterval();
   }
 
   public restartGame(): void {
@@ -73,5 +89,6 @@ export class ControllerService {
     this.playerWon$.next(false);
     this.playerService.player = Player.playerOne;
     this.resetScoreBoard();
+    this.timerService.resetInterval();
   }
 }

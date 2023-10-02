@@ -15,6 +15,7 @@
       <app-control-panel></app-control-panel>
       <app-game-board></app-game-board>
       <app-dashboard
+        [countdown]="time"
         [player]="currentPlayer"
         [hasPlayerWon]="(hasPlayerWon$ | async)!"
       ></app-dashboard>

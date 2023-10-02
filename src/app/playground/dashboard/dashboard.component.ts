@@ -10,7 +10,7 @@ import { ControllerService } from 'src/app/services/controller/controller.servic
 })
 export class DashboardComponent {
   public readonly PLAYER = Player;
-  public timer: number | undefined;
+  @Input() countdown!: number;
   @Input() player: Player = Player.playerOne;
   @Input() hasPlayerWon: boolean = false;
 

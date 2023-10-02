@@ -1,26 +1,29 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  OnInit,
+} from '@angular/core';
 import { Player, Scoreboard } from '@models/models';
-import { ControllerService } from '../services/controller/controller.service';
 import { Observable } from 'rxjs';
-import { GameBoardService } from '../services/game-board/game-board.service';
-import { ScoringService } from '../services/check-winner/scoring.service';
-import { PlayerService } from '../services/player/player.service';
-
+import * as Services from '@services';
 @Component({
   selector: 'app-playground',
   templateUrl: './playground.component.html',
   styleUrls: ['./playground.component.scss'],
   providers: [
-    ScoringService,
-    GameBoardService,
-    ControllerService,
-    PlayerService,
+    Services.ScoringService,
+    Services.GameBoardService,
+    Services.ControllerService,
+    Services.PlayerService,
+    Services.TimerService,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PlaygroundComponent {
+export class PlaygroundComponent implements OnInit {
   public readonly PLAYER = Player;
   public scoreboard: Scoreboard | undefined;
+  public time!: number;
 
   get currentPlayer(): Player {
     return this.controllerService.currentPlayer;
@@ -34,5 +37,20 @@ export class PlaygroundComponent {
     return this.controllerService.scoreBoard$;
   }
 
-  constructor(private controllerService: ControllerService) {}
+  constructor(
+    private controllerService: Services.ControllerService,
+    private changeDetectionRef: ChangeDetectorRef
+  ) {}
+
+  ngOnInit(): void {
+    this.controllerService.setCountdown();
+    this.controllerService.countdown$.subscribe((time) => {
+      this.time = time;
+
+      if (time === 0) {
+        this.controllerService.timeExpired();
+      }
+      this.changeDetectionRef.detectChanges();
+    });
+  }
 }
