@@ -7,12 +7,17 @@
 >
   <div class="container">
     <app-player-indicator
+      *ngIf="!isTablet"
+      [player]="PLAYER.playerOne"
       [playerIndicatorIconName]="PLAYER.playerOne"
       [playerIndicatorText]="PLAYER.playerOne"
       [playerScore]="(scoreBoard$ | async)?.[PLAYER.playerOne] || 0"
     ></app-player-indicator>
     <div class="mid-part">
       <app-control-panel></app-control-panel>
+      <ng-container
+        *ngTemplateOutlet="isTablet ? playerIndicatorTabletMode : null"
+      ></ng-container>
       <app-game-board></app-game-board>
       <app-dashboard
         [countdown]="time"
@@ -21,9 +26,28 @@
       ></app-dashboard>
     </div>
     <app-player-indicator
+      *ngIf="!isTablet"
+      [player]="PLAYER.playerTwo"
       [playerIndicatorIconName]="PLAYER.playerTwo"
       [playerIndicatorText]="PLAYER.playerTwo"
       [playerScore]="(scoreBoard$ | async)?.[PLAYER.playerTwo] || 0"
     ></app-player-indicator>
   </div>
 </div>
+
+<ng-template #playerIndicatorTabletMode>
+  <div class="tablet-player-indicators">
+    <app-player-indicator
+      [player]="PLAYER.playerOne"
+      [playerIndicatorIconName]="PLAYER.playerOne"
+      [playerIndicatorText]="PLAYER.playerOne"
+      [playerScore]="(scoreBoard$ | async)?.[PLAYER.playerOne] || 0"
+    ></app-player-indicator>
+    <app-player-indicator
+      [player]="PLAYER.playerTwo"
+      [playerIndicatorIconName]="PLAYER.playerTwo"
+      [playerIndicatorText]="PLAYER.playerTwo"
+      [playerScore]="(scoreBoard$ | async)?.[PLAYER.playerTwo] || 0"
+    ></app-player-indicator>
+  </div>
+</ng-template>

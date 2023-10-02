@@ -33,4 +33,22 @@
   .player-score {
     font-size: 5.6rem;
   }
+
+  @media (max-width: 1060px) {
+    flex-direction: row;
+    justify-content: center;
+    padding: 1rem 3rem;
+    width: 26rem;
+    gap: 4rem;
+
+    .player-indicator-icon {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translate(-50%, -50%);
+    }
+    &.player-two .player-indicator-icon {
+      left: 100%;
+    }
+  }
 }

@@ -7,6 +7,10 @@
   align-items: center;
   margin-bottom: 5rem;
 
+  @media (max-width: 1060px) {
+    margin-bottom: 2rem;
+  }
+
   .text {
     &:hover {
       background: $yellow;

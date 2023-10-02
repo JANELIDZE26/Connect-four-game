@@ -13,4 +13,9 @@
   align-items: center;
   flex-wrap: wrap;
   gap: 2rem;
+
+  @media (max-width: 1060px) {
+    width: 57rem;
+    height: 48rem;
+  }
 }

@@ -14,9 +14,11 @@
   cursor: pointer;
   transition: all 0.3s;
 
-  @include breakpoint(md, max-height) {
-    width: 5.4rem;
-    height: 5.4rem;
+  @media (max-width: 1060px) {
+    margin-bottom: 1.5rem;
+    width: 5.6rem;
+    height: 5.6rem;
+    box-shadow: inset 0 5px $black;
   }
 
   &.selected,
@@ -29,6 +31,4 @@
       background: $yellow;
     }
   }
-
-
 }

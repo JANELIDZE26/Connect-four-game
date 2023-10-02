@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { PlaygroundComponent } from './playground.component';
 import { SelectableComponent } from './selectable/selectable.component';
 import { MenuPopupComponent } from './menu-popup/menu-popup.component';
+import { LayoutModule } from '@angular/cdk/layout';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { MenuPopupComponent } from './menu-popup/menu-popup.component';
   ],
   imports: [
     CommonModule,
+    LayoutModule,
     RouterModule.forChild([{ path: '', component: PlaygroundComponent }]),
   ],
 })

@@ -45,6 +45,7 @@ export class GameBoardService {
   }
 
   public deactivateHoverState(): void {
+    if(!this.currentColumn) return;
     this.hoveredSelectable!.isHovered = false;
     if (!this.isSelected) {
       this.hoveredSelectable!.player = null;

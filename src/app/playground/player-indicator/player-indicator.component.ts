@@ -9,6 +9,7 @@ import { Player } from '@models/models';
 })
 export class PlayerIndicatorComponent {
   public readonly _PLAYER = Player;
+  @Input() player!: Player;
   @Input() playerIndicatorText: Player | undefined;
   @Input() playerIndicatorIconName: Player | undefined;
   @Input() playerScore: number = 0;
