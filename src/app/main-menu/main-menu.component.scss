@@ -45,4 +45,22 @@
       box-shadow: 0px 0px 0px #5c2dd5;
     }
   }
+
+  @media (max-width: 630px) {
+    width: 36.5rem;
+    height: 37.5rem;
+
+    .logo {
+      padding: 4rem 4rem 0 4rem;
+      text-align: center;
+    }
+
+    .button {
+      font-size: 1.8rem;
+    }
+
+    .playerVsPlayer img {
+      width: 7rem;
+    }
+  }
 }

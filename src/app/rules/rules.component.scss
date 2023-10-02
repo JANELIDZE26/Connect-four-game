@@ -61,4 +61,9 @@
     mix-blend-mode: normal;
     opacity: 0.66;
   }
+
+  @media (max-width: 630px) {
+    width: 90%;
+    margin: 0 auto;
+  }
 }
